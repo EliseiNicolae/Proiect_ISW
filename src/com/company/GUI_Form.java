@@ -11,7 +11,7 @@ public class GUI_Form extends JFrame {
     private JButton harcanAdrianButton;
     private JButton carstoceaCosminMarianButton;
     private JButton mihalacheDavidAlexandruButton;
-    private JButton miloiuMarianIulianButton1;
+    private JButton miloiuMarianIulianButton;
     private JButton nicolaeEliseiButton;
 
 
@@ -69,7 +69,7 @@ public class GUI_Form extends JFrame {
         });
 
 
-        miloiuMarianIulianButton1.addActionListener(new ActionListener() {
+        miloiuMarianIulianButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(rootPanel, "miloiuMarianIulianButton1");

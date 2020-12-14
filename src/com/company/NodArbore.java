@@ -8,4 +8,7 @@ public class NodArbore {
     public void displayNode(){
         System.out.println(KeyNode + " ");
     }
+    public int getNode(){
+        return KeyNode;
+    }
 }

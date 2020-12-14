@@ -51,13 +51,17 @@ public class Arbore {
         }
     }
 
+
     //    Parcurgere RSD
-    public void RSD(NodArbore x) {
+    String noduriArbore = "";
+    public String updateRSD(NodArbore x) {
         if (x != null) {
-            x.displayNode();
-            RSD(x.leftChild);
-            RSD(x.rightChild);
+            noduriArbore = noduriArbore + " " + x.getNode();
+            updateRSD(x.leftChild);
+            updateRSD(x.rightChild);
         }
+
+        return noduriArbore;
     }
 
     //    Parcurgere SDR
@@ -79,15 +83,14 @@ public class Arbore {
     }
 
     //    Calculare inaltime
-    int contor = 0;
-
+    int contorInaltime = 0;
     public int inaltimeArbore(NodArbore x) {
         if (x != null) {
-            contor++;
+            contorInaltime++;
             inaltimeArbore(x.leftChild);
             inaltimeArbore(x.rightChild);
         }
-        return contor;
+        return contorInaltime;
     }
 
     //  Inserare numar in locul valorilor nule (0)

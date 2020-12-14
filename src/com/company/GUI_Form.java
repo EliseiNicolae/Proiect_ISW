@@ -33,7 +33,7 @@ public class GUI_Form extends JFrame {
         add(rootPanel);
 
         setTitle("ISW Program");
-        setSize(1200, 600);
+        setSize(1500, 1000);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         hideProblemPanel();
         menuStudents.setVisible(true);

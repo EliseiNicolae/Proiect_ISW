@@ -23,6 +23,9 @@ public class GUI_Form extends JFrame {
     private JLabel problemName;
     private JLabel inputDescription;
     private JLabel outputDescription;
+    private JButton submitButton;
+    private JPanel menuStudents;
+    private JButton backToMenuButton;
 
 
     public GUI_Form(){
@@ -32,24 +35,24 @@ public class GUI_Form extends JFrame {
         setTitle("ISW Program");
         setSize(1200, 600);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        studentName.setText("");
-        studentName.setText("               ");
-        problemName.setText("               ");
-        descriptionNameProblem.setText("Cerinta problema:");
-        descriptionNameProblem.setVisible(false);
-        descriptionStudentName.setText("Nume student:");
-        descriptionStudentName.setVisible(false);
-        inputTextArea.setVisible(false);
-        outputTextArea.setVisible(false);
-        inputDescription.setVisible(false);
-        outputDescription.setVisible(false);
+        hideProblemPanel();
+        menuStudents.setVisible(true);
 
         nicolaeEliseiButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 studentName.setText("Nicolae Elisei");
                 problemName.setText("50.    Să se calculeze înălțimea unui arbore și să să insereze valoarea respectivă în locul tuturor valorilor nule din arbore.");
-                setPanelVisible();
+                openProblemPanel();
+                submitButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        String textInput = inputTextArea.getText();
+                        System.out.println("textInput = " + textInput);
+//                        Arbore arbore1 = new Arbore();
+                    }
+                });
+
             }
         });
 
@@ -58,7 +61,7 @@ public class GUI_Form extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 studentName.setText("Dumitru Andrei Valentin");
                 problemName.setText("numar problema Andrei");
-                setPanelVisible();
+                openProblemPanel();
             }
         });
 
@@ -68,7 +71,7 @@ public class GUI_Form extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 studentName.setText("Aldescu Alin");
                 problemName.setText("Nr prb Alin");
-                setPanelVisible();
+                openProblemPanel();
             }
         });
 
@@ -78,7 +81,7 @@ public class GUI_Form extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 studentName.setText("Harcan Adrian");
                 problemName.setText("Nr prb Adrian");
-                setPanelVisible();
+                openProblemPanel();
             }
         });
 
@@ -88,7 +91,7 @@ public class GUI_Form extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 studentName.setText("Carstocea Cosmin Marian");
                 problemName.setText("Nr prb Cosmin");
-                setPanelVisible();
+                openProblemPanel();
             }
         });
 
@@ -97,7 +100,7 @@ public class GUI_Form extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 studentName.setText("Mihalache David Alexandru");
                 problemName.setText("Nr prb David");
-                setPanelVisible();
+                openProblemPanel();
             }
         });
 
@@ -107,7 +110,7 @@ public class GUI_Form extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 studentName.setText("Miloiu Marian Iulian");
                 problemName.setText("Nr prb Iulian");
-                setPanelVisible();
+                openProblemPanel();
             }
         });
         baciuAlexandruButton.addActionListener(new ActionListener() {
@@ -115,17 +118,34 @@ public class GUI_Form extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 studentName.setText("Baciu Alexandru");
                 problemName.setText("Nr prb Alexandru");
-                setPanelVisible();
+                openProblemPanel();
+            }
+        });
+        backToMenuButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                hideProblemPanel();
+                openMenuPanel();
             }
         });
     }
 
-    public void setPanelVisible(){
-        descriptionNameProblem.setVisible(true);
-        descriptionStudentName.setVisible(true);
-        inputTextArea.setVisible(true);
-        outputTextArea.setVisible(true);
-        inputDescription.setVisible(true);
-        outputDescription.setVisible(true);
+    public void openProblemPanel(){
+        problemInterface.setVisible(true);
+        hideMenuPanel();
+    }
+
+    public void hideProblemPanel(){
+        inputTextArea.setText("");
+        outputTextArea.setText("");
+        problemInterface.setVisible(false);
+    }
+
+    public void openMenuPanel(){
+        menuStudents.setVisible(true);
+    }
+
+    public void hideMenuPanel(){
+        menuStudents.setVisible(false);
     }
 }

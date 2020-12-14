@@ -50,7 +50,6 @@ public class GUI_Form extends JFrame {
                         showResultEliseiNicolae();
                     }
                 });
-
             }
         });
 
@@ -124,6 +123,10 @@ public class GUI_Form extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 hideProblemPanel();
                 openMenuPanel();
+                ActionListener[] curatare = submitButton.getActionListeners();
+                for(ActionListener instantaActionListener: curatare){
+                    submitButton.removeActionListener(instantaActionListener);
+                }
             }
         });
     }
@@ -150,8 +153,20 @@ public class GUI_Form extends JFrame {
     public void showResultEliseiNicolae(){
         Arbore arbore = new Arbore();
 
+
         // get text from textBox, and insert in the tree
         String textInput = inputTextArea.getText();
+
+        // verify if it contains incorrect characters
+        if (textInput.matches(".*[a-z].*") || textInput.contains(" ") || textInput.matches(".*[A-Z].*") || textInput.length() == 0){
+            JOptionPane.showMessageDialog(rootPanel,
+                    "Input-ul trebuie sa contina doar cifre, separate prin virgula.",
+                    "Error input",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // separate numbers, and insert in the tree
         String[] textInputSplit = textInput.split(",");
         for (String s : textInputSplit) {
             arbore.insert(Integer.parseInt(s));
@@ -160,6 +175,8 @@ public class GUI_Form extends JFrame {
         //get height tree
         int inaltimeArbore = arbore.inaltimeArbore(arbore.root);
 
+        // update contor nods
+        arbore.updateRSD(arbore.root);
 
         // Show in textBox outputs
         outputTextArea.setText("--------------------- Problema 50 ---------------------\n");

@@ -33,7 +33,7 @@ public class GUI_Form extends JFrame {
         add(rootPanel);
 
         setTitle("ISW Program");
-        setSize(1500, 1000);
+        setSize(1500, 700);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         hideProblemPanel();
         menuStudents.setVisible(true);
@@ -47,9 +47,7 @@ public class GUI_Form extends JFrame {
                 submitButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        String textInput = inputTextArea.getText();
-                        System.out.println("textInput = " + textInput);
-//                        Arbore arbore1 = new Arbore();
+                        showResultEliseiNicolae();
                     }
                 });
 
@@ -147,5 +145,31 @@ public class GUI_Form extends JFrame {
 
     public void hideMenuPanel(){
         menuStudents.setVisible(false);
+    }
+
+    public void showResultEliseiNicolae(){
+        Arbore arbore = new Arbore();
+
+        // get text from textBox, and insert in the tree
+        String textInput = inputTextArea.getText();
+        String[] textInputSplit = textInput.split(",");
+        for (String s : textInputSplit) {
+            arbore.insert(Integer.parseInt(s));
+        }
+
+        //get height tree
+        int inaltimeArbore = arbore.inaltimeArbore(arbore.root);
+
+
+        // Show in textBox outputs
+        outputTextArea.setText("--------------------- Problema 50 ---------------------\n");
+        outputTextArea.setText(outputTextArea.getText() + "\n Inaltime arbore: " + inaltimeArbore);
+        outputTextArea.setText(outputTextArea.getText() + "\n Arbore inainte: " + arbore.noduriArbore);
+        arbore.noduriArbore = "";
+        arbore.inserareVLRN(arbore.root, inaltimeArbore);
+        outputTextArea.setText(outputTextArea.getText() + "\n Raspuns: " + arbore.updateRSD(arbore.root));
+        outputTextArea.setText(outputTextArea.getText() + "\n\n--------------------- Problema 50 ---------------------");
+        arbore.noduriArbore = "";
+        arbore.contorInaltime = 0;
     }
 }

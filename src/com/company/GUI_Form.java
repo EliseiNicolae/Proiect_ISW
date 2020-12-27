@@ -15,12 +15,14 @@ public class GUI_Form extends JFrame {
     private JButton miloiuMarianIulianButton;
     private JButton nicolaeEliseiButton;
     private JTextArea inputTextArea;
+    private JTextArea mInput;
+    private JTextArea nInput;
     private JTextArea outputTextArea;
     private JButton baciuAlexandruButton;
     private JLabel studentName;
     private JLabel descriptionStudentName;
     private JLabel descriptionNameProblem;
-    private JLabel problemName;
+    private JTextArea problemName;
     private JLabel inputDescription;
     private JLabel outputDescription;
     private JButton submitButton;
@@ -37,6 +39,7 @@ public class GUI_Form extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         hideProblemPanel();
         menuStudents.setVisible(true);
+        problemName.setEditable(false);
 
         nicolaeEliseiButton.addActionListener(new ActionListener() {
             @Override
@@ -67,8 +70,18 @@ public class GUI_Form extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 studentName.setText("Aldescu Alin");
-                problemName.setText("Nr prb Alin");
+
+                problemName.setText("47. Se dă o listă de forma: l: a11 a12 a13 a14.. a1n → a21 a22 a23 a23 ..a2n→... → am1 am2 am3.. amn \n" +
+                        ", cu m și n date. Se cere să se construiască matricea asociată care conține m linii și n coloane,\n" +
+                        " pe fiecare linie fiind elementele din cîmpurile informație ale uneia din celulele listei,\n" +
+                        " astfel prima linie va conține a11 a12 a13 a14.. a1n, a doua a21 a22 a23 a24.. a2n samd.");
                 openProblemPanel();
+                submitButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        showResultAlinAldescu();
+                    }
+                });
             }
         });
 
@@ -188,5 +201,73 @@ public class GUI_Form extends JFrame {
         outputTextArea.setText(outputTextArea.getText() + "\n\n--------------------- Problema 50 ---------------------");
         arbore.noduriArbore = "";
         arbore.contorInaltime = 0;
+    }
+
+    public void showResultAlinAldescu() {
+        LinkList theList = new LinkList();
+
+//        Scanner scn = new Scanner(System.in);
+//        System.out.println("Introduceti numarul de linii 'm': ");
+//        int m = scn.nextInt();
+//        System.out.println("Introduceti numarul de coloane 'n': ");
+//        int n = scn.nextInt();
+
+        int m = 2;
+        int n = 3;
+
+        int prod = m * n;
+        int value;
+
+//        System.out.println("Introduceti " + prod + " elemente in lista: ");
+
+        String textInput = inputTextArea.getText();
+
+        if (textInput.matches(".*[a-z].*") || textInput.contains(" ") || textInput.matches(".*[A-Z].*") || textInput.length() == 0){
+            JOptionPane.showMessageDialog(rootPanel,
+                    "Input-ul trebuie sa contina doar cifre, separate prin virgula.",
+                    "Error input",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String[] textInputSplit = textInput.split(",");
+
+//        for (int i = 0; i < prod; i++) {
+//            value = scn.nextInt();
+//            theList.insertLast(value);
+//        }
+
+        for (String s : textInputSplit) {
+            theList.insertLast(Integer.parseInt(s));
+        }
+
+        int[][] matrix = new int[m][n];
+        int nr = 1;
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                matrix[i][j] = theList.getListItem(nr);
+                nr++;
+            }
+        }
+
+//        for (int i = 0; i < m; i++) {
+//            for (int j = 0; j < n; j++) {
+//                System.out.print(matrix[i][j] + " ");
+//            }
+//            System.out.println("");
+//        }
+
+        outputTextArea.setText("--------------------- Problema 47 ---------------------\n");
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+//              System.out.print(matrix[i][j] + " ");
+                outputTextArea.setText(outputTextArea.getText() + matrix[i][j] + " ");
+            }
+//          System.out.println("");
+            outputTextArea.setText(outputTextArea.getText() + "\n");
+        }
+        outputTextArea.setText(outputTextArea.getText() + "\n\n--------------------- Problema 47 ---------------------");
     }
 }

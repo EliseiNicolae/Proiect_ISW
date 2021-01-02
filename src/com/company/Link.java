@@ -17,5 +17,3 @@ public class Link {
         System.out.print(keyID + "//" + iData + " ");
     }
 }
-
-

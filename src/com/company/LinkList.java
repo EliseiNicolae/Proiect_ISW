@@ -13,11 +13,11 @@ public class LinkList {
         return first == null;
     }
 
-//    public void insertFirst(int I) {
-//        Link newLink = new Link(I);
-//        newLink.next = first;        // newLink --> old first
-//        first = newLink;             // first --> newLink
-//    }
+    public void insertFirst(int I) {
+        Link newLink = new Link(I);
+        newLink.next = first;
+        first = newLink;
+    }
 
     public void displayList() {
         System.out.print("List (first-->last): ");

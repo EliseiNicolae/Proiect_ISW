@@ -28,9 +28,14 @@ public class GUI_Form extends JFrame {
     private JButton submitButton;
     private JPanel menuStudents;
     private JButton backToMenuButton;
+    private JLabel mLabel;
+    private JLabel nLabel;
+    private JButton continueButton;
+    private JLabel totalLabel;
 
+    int m, n, prod;
 
-    public GUI_Form(){
+    public GUI_Form() {
 
         add(rootPanel);
 
@@ -40,6 +45,7 @@ public class GUI_Form extends JFrame {
         hideProblemPanel();
         menuStudents.setVisible(true);
         problemName.setEditable(false);
+
 
         nicolaeEliseiButton.addActionListener(new ActionListener() {
             @Override
@@ -65,12 +71,22 @@ public class GUI_Form extends JFrame {
             }
         });
 
-
         aldescuAlinButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                studentName.setText("Aldescu Alin");
+                mInput.setVisible(true);
+                nInput.setVisible(true);
+                mLabel.setVisible(true);
+                nLabel.setVisible(true);
+                inputDescription.setVisible(false);
+                outputDescription.setVisible(false);
+                inputTextArea.setVisible(false);
+                outputTextArea.setVisible(false);
+                submitButton.setVisible(false);
 
+                continueButton.setVisible(true);
+
+                studentName.setText("Aldescu Alin");
                 problemName.setText("47. Se dă o listă de forma: l: a11 a12 a13 a14.. a1n → a21 a22 a23 a23 ..a2n→... → am1 am2 am3.. amn \n" +
                         ", cu m și n date. Se cere să se construiască matricea asociată care conține m linii și n coloane,\n" +
                         " pe fiecare linie fiind elementele din cîmpurile informație ale uneia din celulele listei,\n" +
@@ -85,7 +101,6 @@ public class GUI_Form extends JFrame {
             }
         });
 
-
         harcanAdrianButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -94,7 +109,6 @@ public class GUI_Form extends JFrame {
                 openProblemPanel();
             }
         });
-
 
         carstoceaCosminMarianButton.addActionListener(new ActionListener() {
             @Override
@@ -114,7 +128,6 @@ public class GUI_Form extends JFrame {
             }
         });
 
-
         miloiuMarianIulianButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -123,6 +136,7 @@ public class GUI_Form extends JFrame {
                 openProblemPanel();
             }
         });
+
         baciuAlexandruButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -131,39 +145,68 @@ public class GUI_Form extends JFrame {
                 openProblemPanel();
             }
         });
+
         backToMenuButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 hideProblemPanel();
                 openMenuPanel();
                 ActionListener[] curatare = submitButton.getActionListeners();
-                for(ActionListener instantaActionListener: curatare){
+                for (ActionListener instantaActionListener : curatare) {
                     submitButton.removeActionListener(instantaActionListener);
                 }
             }
         });
+
+        continueButton.addActionListener(e -> {
+            totalLabel.setVisible(true);
+            inputDescription.setVisible(true);
+            outputDescription.setVisible(true);
+            inputTextArea.setVisible(true);
+            outputTextArea.setVisible(true);
+            submitButton.setVisible(true);
+
+            String m_input = mInput.getText();
+            String n_input = nInput.getText();
+            m = Integer.parseInt(m_input);
+            n = Integer.parseInt(n_input);
+            prod = m * n;
+
+            totalLabel.setText("Introduceti " + prod + " elemente separate prin virgula.");
+        });
     }
 
-    public void openProblemPanel(){
+    public void openProblemPanel() {
         problemInterface.setVisible(true);
         hideMenuPanel();
     }
 
-    public void hideProblemPanel(){
+    public void hideProblemPanel() {
         inputTextArea.setText("");
         outputTextArea.setText("");
+        inputDescription.setVisible(true);
+        outputDescription.setVisible(true);
+        inputTextArea.setVisible(true);
+        outputTextArea.setVisible(true);
+        submitButton.setVisible(true);
+        mInput.setVisible(false);
+        nInput.setVisible(false);
+        mLabel.setVisible(false);
+        nLabel.setVisible(false);
+        continueButton.setVisible(false);
+        totalLabel.setVisible(false);
         problemInterface.setVisible(false);
     }
 
-    public void openMenuPanel(){
+    public void openMenuPanel() {
         menuStudents.setVisible(true);
     }
 
-    public void hideMenuPanel(){
+    public void hideMenuPanel() {
         menuStudents.setVisible(false);
     }
 
-    public void showResultEliseiNicolae(){
+    public void showResultEliseiNicolae() {
         Arbore arbore = new Arbore();
 
 
@@ -171,7 +214,7 @@ public class GUI_Form extends JFrame {
         String textInput = inputTextArea.getText();
 
         // verify if it contains incorrect characters
-        if (textInput.matches(".*[a-z].*") || textInput.contains(" ") || textInput.matches(".*[A-Z].*") || textInput.length() == 0){
+        if (textInput.matches(".*[a-z].*") || textInput.contains(" ") || textInput.matches(".*[A-Z].*") || textInput.length() == 0) {
             JOptionPane.showMessageDialog(rootPanel,
                     "Input-ul trebuie sa contina doar cifre, separate prin virgula.",
                     "Error input",
@@ -204,25 +247,13 @@ public class GUI_Form extends JFrame {
     }
 
     public void showResultAlinAldescu() {
+//        create a new LinkList
         LinkList theList = new LinkList();
 
-//        Scanner scn = new Scanner(System.in);
-//        System.out.println("Introduceti numarul de linii 'm': ");
-//        int m = scn.nextInt();
-//        System.out.println("Introduceti numarul de coloane 'n': ");
-//        int n = scn.nextInt();
+//        get input
+        String textInputAlin = inputTextArea.getText();
 
-        int m = 2;
-        int n = 3;
-
-        int prod = m * n;
-        int value;
-
-//        System.out.println("Introduceti " + prod + " elemente in lista: ");
-
-        String textInput = inputTextArea.getText();
-
-        if (textInput.matches(".*[a-z].*") || textInput.contains(" ") || textInput.matches(".*[A-Z].*") || textInput.length() == 0){
+        if (textInputAlin.matches(".*[a-z].*") || textInputAlin.contains(" ") || textInputAlin.matches(".*[A-Z].*") || textInputAlin.length() == 0) {
             JOptionPane.showMessageDialog(rootPanel,
                     "Input-ul trebuie sa contina doar cifre, separate prin virgula.",
                     "Error input",
@@ -230,20 +261,17 @@ public class GUI_Form extends JFrame {
             return;
         }
 
-        String[] textInputSplit = textInput.split(",");
+        String[] textInputAlinSplit = textInputAlin.split(",");
 
-//        for (int i = 0; i < prod; i++) {
-//            value = scn.nextInt();
-//            theList.insertLast(value);
-//        }
-
-        for (String s : textInputSplit) {
+//        insert input items in the List
+        for (String s : textInputAlinSplit) {
             theList.insertLast(Integer.parseInt(s));
         }
 
         int[][] matrix = new int[m][n];
         int nr = 1;
 
+//        populate matrix with list items
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
                 matrix[i][j] = theList.getListItem(nr);
@@ -251,23 +279,15 @@ public class GUI_Form extends JFrame {
             }
         }
 
-//        for (int i = 0; i < m; i++) {
-//            for (int j = 0; j < n; j++) {
-//                System.out.print(matrix[i][j] + " ");
-//            }
-//            System.out.println("");
-//        }
-
+//        output the result
         outputTextArea.setText("--------------------- Problema 47 ---------------------\n");
-
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-//              System.out.print(matrix[i][j] + " ");
                 outputTextArea.setText(outputTextArea.getText() + matrix[i][j] + " ");
             }
-//          System.out.println("");
             outputTextArea.setText(outputTextArea.getText() + "\n");
         }
-        outputTextArea.setText(outputTextArea.getText() + "\n\n--------------------- Problema 47 ---------------------");
+        outputTextArea.setText(outputTextArea.getText() + "\n--------------------- Problema 47 ---------------------");
     }
+
 }

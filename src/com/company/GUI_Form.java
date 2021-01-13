@@ -248,7 +248,7 @@ public class GUI_Form extends JFrame {
 
     public void showResultAlinAldescu() {
 //        create a new LinkList
-        LinkList theList = new LinkList();
+        LinkListAlin theList = new LinkListAlin();
 
 //        get input
         String textInputAlin = inputTextArea.getText();

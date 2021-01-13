@@ -1,10 +1,10 @@
 package com.company;
 
-public class LinkList {
-    public Link first;
-    public Link last;
+public class LinkListAlin {
+    public LinkAlin first;
+    public LinkAlin last;
 
-    public LinkList() {
+    public LinkListAlin() {
         first = null;
         last = null;
     }
@@ -14,14 +14,14 @@ public class LinkList {
     }
 
     public void insertFirst(int I) {
-        Link newLink = new Link(I);
+        LinkAlin newLink = new LinkAlin(I);
         newLink.next = first;
         first = newLink;
     }
 
     public void displayList() {
         System.out.print("List (first-->last): ");
-        Link current = first;
+        LinkAlin current = first;
         while (current != null) {
             current.displayLink();
             current = current.next;
@@ -31,7 +31,7 @@ public class LinkList {
 
     public int getListItem(int nr) {
         int d = 0;
-        Link current = first;
+        LinkAlin current = first;
         while (current != null) {
             if (nr == current.keyID) {
                 d = current.iData;
@@ -43,7 +43,7 @@ public class LinkList {
     }
 
     public void insertLast(int dd) {
-        Link newLink = new Link(dd);
+        LinkAlin newLink = new LinkAlin(dd);
         if (isEmpty()) {
             first = newLink;
         } else {

@@ -28,7 +28,7 @@ public class GUI_Form extends JFrame {
     private JButton submitButton;
     private JPanel menuStudents;
     private JButton backToMenuButton;
-    private JLabel mLabel;
+    public JLabel mLabel;
     private JLabel nLabel;
     private JButton continueButton;
     private JLabel totalLabel;
@@ -80,6 +80,8 @@ public class GUI_Form extends JFrame {
                 nLabel.setVisible(true);
                 inputDescription.setVisible(false);
                 outputDescription.setVisible(false);
+                inputDescription.setText("Introduceți elementele listei: ");
+                outputDescription.setText("Matricea rezultată: ");
                 inputTextArea.setVisible(false);
                 outputTextArea.setVisible(false);
                 submitButton.setVisible(false);
@@ -104,9 +106,24 @@ public class GUI_Form extends JFrame {
         harcanAdrianButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                inputDescription.setText("Introduceți elementele listei: ");
+                outputDescription.setText("A 2-a listă rezultată: ");
                 studentName.setText("Harcan Adrian");
-                problemName.setText("Nr prb Adrian");
+                problemName.setText("Se dă o listă de forma l1: x1 y1 → x2 y2 →... → xn yn /, unde yi=f(xi), iar f este o functie oarecare la alegere. \n" +
+                        "Se cere să se construiască o a doua listă de forma l2: y1 x1 → y2 x2 →... → yn xn \n" +
+                        "f(xi) = xi2\n" +
+                        "deci yi = xi2\n" +
+                        "Exemplu de lista 1:\n" +
+                        "1 : 1 2 2 4 3 6\n" +
+                        "Exemplu de lista 2:\n" +
+                        "l2: 2 1 4 2 6 3");
                 openProblemPanel();
+                submitButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        showResultHarcanAdrian();
+                    }
+                });
             }
         });
 
@@ -290,4 +307,49 @@ public class GUI_Form extends JFrame {
         outputTextArea.setText(outputTextArea.getText() + "\n--------------------- Problema 47 ---------------------");
     }
 
+
+    public void showResultHarcanAdrian() {
+//        create a new LinkList
+        LinkListAdrian theList = new LinkListAdrian();
+        LinkListAdrian resultList = new LinkListAdrian();
+
+//        get input
+        String textInputAdrian = inputTextArea.getText();
+
+        if (textInputAdrian.matches(".*[a-z].*") || textInputAdrian.contains(" ") || textInputAdrian.matches(".*[A-Z].*") || textInputAdrian.length() == 0) {
+            JOptionPane.showMessageDialog(rootPanel,
+                    "Input-ul trebuie sa contina doar cifre, separate prin virgula.",
+                    "Error input",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String[] textInputAdrianSplit = textInputAdrian.split(",");
+        int numberOfElements = 0;
+        // insereaza numerele din input de la sfarsit in theList
+        for (String s : textInputAdrianSplit) {
+            numberOfElements++;
+            theList.insertLast(Integer.parseInt(s));
+        }
+
+        // insereaza dupa fiecare element
+        for (int i = 1; i <= numberOfElements; i++) {
+            theList.insertAfter(i);
+        }
+
+//        theList.square(theList);
+//        theList.displayList();
+//        resultList.insertFirst();
+//        output the result
+        outputTextArea.setText("--------------------- Problema 17 ---------------------\n");
+//        outputTextArea.setText(outputTextArea.getText() + );
+        int[] arr2 = theList.getArr();
+        System.out.println(arr2);
+
+        for (int i = 0; i < numberOfElements; i++) {
+            System.out.println(arr2[i]);
+//            System.out.println(LinkListAdrian.ar[i]);
+        }
+        outputTextArea.setText(outputTextArea.getText() + "\n--------------------- Problema 17 ---------------------");
+    }
 }

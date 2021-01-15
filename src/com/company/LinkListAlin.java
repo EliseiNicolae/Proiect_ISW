@@ -37,7 +37,6 @@ public class LinkListAlin {
                 d = current.iData;
             }
             current = current.next;
-
         }
         return d;
     }

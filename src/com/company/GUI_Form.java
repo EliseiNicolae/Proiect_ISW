@@ -364,23 +364,15 @@ public class GUI_Form extends JFrame {
         while (!theStack.isEmpty()) {
             int value = theStack.pop();
             stackArray.add(value);
-            System.out.print(value);
-            System.out.print(" ");
             stackHeight++;
         }
-
-        System.out.println(stackHeight);
 
         int ok = 0;
         for (Integer item : stackArray) {
             if (item == stackHeight) {
                 ok = 1;
-                System.out.println("Exista");
                 break;
             }
-        }
-        if (ok == 0) {
-            System.out.println("Nu Exista");
         }
 
         outputTextArea.setText("--------------------- Problema 12 ---------------------\n");

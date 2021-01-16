@@ -3,6 +3,7 @@ package com.company;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class GUI_Form extends JFrame {
     private JPanel rootPanel;
@@ -114,8 +115,14 @@ public class GUI_Form extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 studentName.setText("Carstocea Cosmin Marian");
-                problemName.setText("Nr prb Cosmin");
+                problemName.setText("7. Eliminarea dintr-o listă  simplă  înlănțuită a cheilor  pozitive , cu sau fără eliberare de memorie.");
                 openProblemPanel();
+                submitButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        showResultCarstoceaCosmin();
+                    }
+                });
             }
         });
 
@@ -290,4 +297,37 @@ public class GUI_Form extends JFrame {
         outputTextArea.setText(outputTextArea.getText() + "\n--------------------- Problema 47 ---------------------");
     }
 
+    public void showResultCarstoceaCosmin() {
+        // creare lista noua
+        LinkListCosmin theList = new LinkListCosmin();
+
+        String textInputCosmin = inputTextArea.getText();
+
+        if (textInputCosmin.matches(".*[a-z].*") || textInputCosmin.contains(" ") || textInputCosmin.matches(".*[A-Z].*") || textInputCosmin.length() == 0) {
+            JOptionPane.showMessageDialog(rootPanel,
+                    "Input-ul trebuie sa contina doar cifre, separate prin virgula.",
+                    "Error input",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String[] textInputCosminSplit = textInputCosmin.split(",");
+
+//        insert input items in the List
+        for (String s : textInputCosminSplit) {
+            theList.insertFirst(Integer.parseInt(s));
+        }
+
+        theList.displayList();
+        theList.deletePositive();
+        theList.displayList();
+
+        ArrayList<Integer> newArr = theList.getResultArray();
+
+        outputTextArea.setText("--------------------- Problema 7 ---------------------\n");
+        for (Integer item : newArr) {
+            outputTextArea.setText(outputTextArea.getText() + item + " ");
+        }
+        outputTextArea.setText(outputTextArea.getText() + "\n--------------------- Problema 7 ---------------------");
+    }
 }

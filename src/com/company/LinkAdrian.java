@@ -15,7 +15,6 @@ public class LinkAdrian {
     public LinkAdrian next;
     private static final AtomicInteger count = new AtomicInteger(0);
     public final int keyID;
-    public LinkAdrian previous;
 
     public LinkAdrian(int I) {
         keyID = count.incrementAndGet();

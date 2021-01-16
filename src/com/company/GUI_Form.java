@@ -3,6 +3,7 @@ package com.company;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 
 public class GUI_Form extends JFrame {
     private JPanel rootPanel;
@@ -32,6 +33,8 @@ public class GUI_Form extends JFrame {
     private JLabel nLabel;
     private JButton continueButton;
     private JLabel totalLabel;
+    private JTextArea fInputData;
+    private JLabel f_labelText;
 
     int m, n, prod;
 
@@ -121,6 +124,7 @@ public class GUI_Form extends JFrame {
                 submitButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
+                        setVisibleHarcanInputs(true);
                         showResultHarcanAdrian();
                     }
                 });
@@ -213,6 +217,7 @@ public class GUI_Form extends JFrame {
         continueButton.setVisible(false);
         totalLabel.setVisible(false);
         problemInterface.setVisible(false);
+        setVisibleHarcanInputs(false);
     }
 
     public void openMenuPanel() {
@@ -309,11 +314,22 @@ public class GUI_Form extends JFrame {
 
 
     public void showResultHarcanAdrian() {
-//        create a new LinkList
-        LinkListAdrian theList = new LinkListAdrian();
-        LinkListAdrian resultList = new LinkListAdrian();
+        LinkListAdrian l1= new LinkListAdrian();
+        LinkListAdrian l2= new LinkListAdrian();
+        int f;
 
-//        get input
+        /* Get inputs from TextFields */
+        try{
+            f = Integer.parseInt(fInputData.getText());
+        }catch (Exception e){
+            System.out.println(e);
+            JOptionPane.showMessageDialog(rootPanel,
+                    "Campul 'f' nu a fost completat sau a fost completat gresit. Acest camp trebuie sa contina un singur numar. ",
+                    "Error input",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         String textInputAdrian = inputTextArea.getText();
 
         if (textInputAdrian.matches(".*[a-z].*") || textInputAdrian.contains(" ") || textInputAdrian.matches(".*[A-Z].*") || textInputAdrian.length() == 0) {
@@ -326,30 +342,35 @@ public class GUI_Form extends JFrame {
 
         String[] textInputAdrianSplit = textInputAdrian.split(",");
         int numberOfElements = 0;
-        // insereaza numerele din input de la sfarsit in theList
+
+        // insert numbers from textField into list (l1)
         for (String s : textInputAdrianSplit) {
+            l1.insertFirst(Integer.parseInt(s));
             numberOfElements++;
-            theList.insertLast(Integer.parseInt(s));
         }
 
-        // insereaza dupa fiecare element
-        for (int i = 1; i <= numberOfElements; i++) {
-            theList.insertAfter(i);
-        }
+        /* insert elements in l2 as the problem says and multiply it by f*/
+        while(!l1.isEmpty()){
+            int last_element = l1.deleteFirst();
 
-//        theList.square(theList);
-//        theList.displayList();
-//        resultList.insertFirst();
-//        output the result
+            if(!l1.isEmpty()) {
+                l2.insertFirst(l1.deleteFirst() * f);
+            }
+
+            l2.insertFirst(last_element * f);
+        }
+        int[] textOuputAdrian = l2.getList(numberOfElements);
+
+        /* show the results */
         outputTextArea.setText("--------------------- Problema 17 ---------------------\n");
-//        outputTextArea.setText(outputTextArea.getText() + );
-        int[] arr2 = theList.getArr();
-        System.out.println(arr2);
+        outputTextArea.setText(outputTextArea.getText() + "Inputs elements: " + Arrays.toString(textInputAdrianSplit) + "\n");
+        outputTextArea.setText(outputTextArea.getText() + "Outputs elements: " + Arrays.toString(textOuputAdrian));
 
-        for (int i = 0; i < numberOfElements; i++) {
-            System.out.println(arr2[i]);
-//            System.out.println(LinkListAdrian.ar[i]);
-        }
         outputTextArea.setText(outputTextArea.getText() + "\n--------------------- Problema 17 ---------------------");
+    }
+
+    public void setVisibleHarcanInputs(boolean type){
+        f_labelText.setVisible(type);
+        fInputData.setVisible(type);
     }
 }

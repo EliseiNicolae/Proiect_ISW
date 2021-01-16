@@ -67,8 +67,14 @@ public class GUI_Form extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 studentName.setText("Dumitru Andrei Valentin");
-                problemName.setText("numar problema Andrei");
+                problemName.setText("12. Să se calculeze înălțimea unei stive și să se determine dacă  valoarea sa se regăsește ca element în stivă");
                 openProblemPanel();
+                submitButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        showResultAndreiDumitru();
+                    }
+                });
             }
         });
 
@@ -329,5 +335,62 @@ public class GUI_Form extends JFrame {
             outputTextArea.setText(outputTextArea.getText() + item + " ");
         }
         outputTextArea.setText(outputTextArea.getText() + "\n--------------------- Problema 7 ---------------------");
+    }
+
+    public void showResultAndreiDumitru() {
+        StackAndrei theStack = new StackAndrei(10);
+
+        String textInputAndrei = inputTextArea.getText();
+
+        if (textInputAndrei.matches(".*[a-z].*") || textInputAndrei.contains(" ") || textInputAndrei.matches(".*[A-Z].*") || textInputAndrei.length() == 0) {
+            JOptionPane.showMessageDialog(rootPanel,
+                    "Input-ul trebuie sa contina doar cifre, separate prin virgula.",
+                    "Error input",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String[] textInputAndreiSplit = textInputAndrei.split(",");
+
+//        insert input items in the List
+        for (String s : textInputAndreiSplit) {
+            theStack.push(Integer.parseInt(s));
+        }
+
+        int stackHeight = 0;
+        // aici vom stoca cheile negative din lista
+        ArrayList<Integer> stackArray = new ArrayList<>(1);
+
+        while (!theStack.isEmpty()) {
+            int value = theStack.pop();
+            stackArray.add(value);
+            System.out.print(value);
+            System.out.print(" ");
+            stackHeight++;
+        }
+
+        System.out.println(stackHeight);
+
+        int ok = 0;
+        for (Integer item : stackArray) {
+            if (item == stackHeight) {
+                ok = 1;
+                System.out.println("Exista");
+                break;
+            }
+        }
+        if (ok == 0) {
+            System.out.println("Nu Exista");
+        }
+
+        outputTextArea.setText("--------------------- Problema 12 ---------------------\n");
+        outputTextArea.setText(outputTextArea.getText() + "Înălțimea stivei este: ");
+        outputTextArea.setText(outputTextArea.getText() + stackHeight + "\n");
+        if (ok == 1) {
+            outputTextArea.setText(outputTextArea.getText() + "Valoarea sa se regăsește în stivă.");
+        } else {
+            outputTextArea.setText(outputTextArea.getText() + "Valoarea sa nu se regăsește în stivă.");
+        }
+        outputTextArea.setText(outputTextArea.getText() + "\n--------------------- Problema 12 ---------------------");
     }
 }

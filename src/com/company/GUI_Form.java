@@ -40,7 +40,7 @@ public class GUI_Form extends JFrame {
 
         add(rootPanel);
 
-        setTitle("ISW Program");
+        setTitle("Proiect ISW");
         setSize(1500, 700);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         hideProblemPanel();
@@ -154,8 +154,14 @@ public class GUI_Form extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 studentName.setText("Baciu Alexandru");
-                problemName.setText("Nr prb Alexandru");
+                problemName.setText("8. Să se determine lungimea și maximul unei stive");
                 openProblemPanel();
+                submitButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        showResultAlexandruBaciu();
+                    }
+                });
             }
         });
 
@@ -338,7 +344,7 @@ public class GUI_Form extends JFrame {
     }
 
     public void showResultAndreiDumitru() {
-        StackAndrei theStack = new StackAndrei(10);
+        StackAndrei theStack = new StackAndrei(20);
 
         String textInputAndrei = inputTextArea.getText();
 
@@ -384,5 +390,49 @@ public class GUI_Form extends JFrame {
             outputTextArea.setText(outputTextArea.getText() + "Valoarea sa nu se regăsește în stivă.");
         }
         outputTextArea.setText(outputTextArea.getText() + "\n--------------------- Problema 12 ---------------------");
+    }
+
+    public void showResultAlexandruBaciu() {
+        StackAlexandru theStack = new StackAlexandru(20);
+
+        String textInputAlexandru = inputTextArea.getText();
+
+        if (textInputAlexandru.matches(".*[a-z].*") || textInputAlexandru.contains(" ") || textInputAlexandru.matches(".*[A-Z].*") || textInputAlexandru.length() == 0) {
+            JOptionPane.showMessageDialog(rootPanel,
+                    "Input-ul trebuie sa contina doar cifre, separate prin virgula.",
+                    "Error input",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String[] textInputAlexandruSplit = textInputAlexandru.split(",");
+
+//        insert input items in the List
+        for (String s : textInputAlexandruSplit) {
+            theStack.push(Integer.parseInt(s));
+        }
+
+        int stackLength = 0;
+        // aici vom stoca cheile negative din lista
+        ArrayList<Integer> stackArray = new ArrayList<>(1);
+
+        while (!theStack.isEmpty()) {
+            int value = theStack.pop();
+            stackArray.add(value);
+            stackLength++;
+        }
+
+        int max = stackArray.get(0);
+        for (Integer item : stackArray) {
+            if (item > max)
+                max = item;
+        }
+
+        outputTextArea.setText("--------------------- Problema 8 ---------------------\n");
+        outputTextArea.setText(outputTextArea.getText() + "Lungimea stivei este: ");
+        outputTextArea.setText(outputTextArea.getText() + stackLength + "\n");
+        outputTextArea.setText(outputTextArea.getText() + "Elementul maxim din stivă este: ");
+        outputTextArea.setText(outputTextArea.getText() + max);
+        outputTextArea.setText(outputTextArea.getText() + "\n--------------------- Problema 8 ---------------------");
     }
 }

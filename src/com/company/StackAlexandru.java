@@ -1,12 +1,12 @@
 package com.company;
 
-public class StackAndrei {
+public class StackAlexandru {
     private final int maxSize;
     private final int[] stackArray;
     private int top;
 
 
-    public StackAndrei(int s) {
+    public StackAlexandru(int s) {
         maxSize = s;
         stackArray = new int[maxSize];
         top = -1;

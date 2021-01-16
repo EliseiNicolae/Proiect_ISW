@@ -24,8 +24,4 @@ public class LinkAdrian {
     public int getData() {
         return iData;
     }
-
-    public void displayLink() {
-        System.out.print(iData + " ");
-    }
 }

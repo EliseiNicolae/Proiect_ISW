@@ -3,7 +3,6 @@ package com.company;
 public class LinkListAdrian {
     public LinkAdrian first;
     public LinkAdrian last;
-    public static int[] ar;
 
     public LinkListAdrian() {
         first = null;

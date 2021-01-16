@@ -1,21 +1,21 @@
 package com.company;
 
-public class Arbore {
-    public NodArbore root;
+public class ArboreElisei {
+    public NodArboreElisei root;
 
-    public Arbore() {
+    public ArboreElisei() {
         root = null;
     }
 
     //    Inserare
     public void insert(int key) {
-        NodArbore newNode = new NodArbore();
+        NodArboreElisei newNode = new NodArboreElisei();
         newNode.KeyNode = key;
         if (root == null) {
             root = newNode;
         } else {
-            NodArbore current = root;
-            NodArbore parent;
+            NodArboreElisei current = root;
+            NodArboreElisei parent;
             while (true) {
                 parent = current;
                 if (key < current.KeyNode) {
@@ -37,7 +37,7 @@ public class Arbore {
 
     //    Parcurgere RSD
     String noduriArbore = "";
-    public String updateRSD(NodArbore x) {
+    public String updateRSD(NodArboreElisei x) {
         if (x != null) {
             noduriArbore = noduriArbore + " " + x.getNode();
             updateRSD(x.leftChild);
@@ -49,7 +49,7 @@ public class Arbore {
 
     //    Calculare inaltime
     int contorInaltime = 0;
-    public int inaltimeArbore(NodArbore x) {
+    public int inaltimeArbore(NodArboreElisei x) {
         if (x != null) {
             contorInaltime++;
             inaltimeArbore(x.leftChild);
@@ -59,7 +59,7 @@ public class Arbore {
     }
 
     //  Inserare numar in locul valorilor nule (0)
-    public void inserareVLRN(NodArbore x, int valoareInlocuire){
+    public void inserareVLRN(NodArboreElisei x, int valoareInlocuire){
         if (x != null) {
             inserareVLRN(x.leftChild, valoareInlocuire);
             inserareVLRN(x.rightChild, valoareInlocuire);

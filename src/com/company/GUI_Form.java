@@ -249,7 +249,7 @@ public class GUI_Form extends JFrame {
     }
 
     public void showResultEliseiNicolae() {
-        Arbore arbore = new Arbore();
+        ArboreElisei arboreElisei = new ArboreElisei();
 
 
         // get text from textBox, and insert in the tree
@@ -267,25 +267,33 @@ public class GUI_Form extends JFrame {
         // separate numbers, and insert in the tree
         String[] textInputSplit = textInput.split(" ");
         for (String s : textInputSplit) {
-            arbore.insert(Integer.parseInt(s));
+            try {
+                arboreElisei.insert(Integer.parseInt(s));
+            }catch (Exception e){
+                JOptionPane.showMessageDialog(rootPanel,
+                        "Input-ul contine caractere interzise sau double-space.",
+                        "Error input",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }
         }
 
         //get height tree
-        int inaltimeArbore = arbore.inaltimeArbore(arbore.root);
+        int inaltimeArbore = arboreElisei.inaltimeArbore(arboreElisei.root);
 
         // update contor nods
-        arbore.updateRSD(arbore.root);
+        arboreElisei.updateRSD(arboreElisei.root);
 
         // Show in textBox outputs
         outputTextArea.setText("--------------------- Problema 50 ---------------------\n");
         outputTextArea.setText(outputTextArea.getText() + "\n Inaltime arbore: " + inaltimeArbore);
-        outputTextArea.setText(outputTextArea.getText() + "\n Arbore inainte: " + arbore.noduriArbore);
-        arbore.noduriArbore = "";
-        arbore.inserareVLRN(arbore.root, inaltimeArbore);
-        outputTextArea.setText(outputTextArea.getText() + "\n Raspuns: " + arbore.updateRSD(arbore.root));
+        outputTextArea.setText(outputTextArea.getText() + "\n Arbore inainte: " + arboreElisei.noduriArbore);
+        arboreElisei.noduriArbore = "";
+        arboreElisei.inserareVLRN(arboreElisei.root, inaltimeArbore);
+        outputTextArea.setText(outputTextArea.getText() + "\n Raspuns: " + arboreElisei.updateRSD(arboreElisei.root));
         outputTextArea.setText(outputTextArea.getText() + "\n\n--------------------- Problema 50 ---------------------");
-        arbore.noduriArbore = "";
-        arbore.contorInaltime = 0;
+        arboreElisei.noduriArbore = "";
+        arboreElisei.contorInaltime = 0;
     }
 
     public void showResultAlinAldescu() {

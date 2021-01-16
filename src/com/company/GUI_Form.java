@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class GUI_Form extends JFrame {
     private JPanel rootPanel;
@@ -33,6 +34,8 @@ public class GUI_Form extends JFrame {
     private JLabel nLabel;
     private JButton continueButton;
     private JLabel totalLabel;
+    private JTextField fInputData;
+    private JLabel f_labelText;
 
     int m, n, prod;
 
@@ -87,6 +90,8 @@ public class GUI_Form extends JFrame {
                 nLabel.setVisible(true);
                 inputDescription.setVisible(false);
                 outputDescription.setVisible(false);
+                inputDescription.setText("Introduceți elementele listei: ");
+                outputDescription.setText("Matricea rezultată: ");
                 inputTextArea.setVisible(false);
                 outputTextArea.setVisible(false);
                 submitButton.setVisible(false);
@@ -111,9 +116,26 @@ public class GUI_Form extends JFrame {
         harcanAdrianButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                setVisibleHarcanInputs(true);
+                inputDescription.setText("Introduceți elementele listei: ");
+                outputDescription.setText("A 2-a listă rezultată: ");
                 studentName.setText("Harcan Adrian");
-                problemName.setText("Nr prb Adrian");
+                problemName.setText("Se dă o listă de forma l1: x1 y1 → x2 y2 →... → xn yn /, unde yi=f(xi), iar f este o functie oarecare la alegere. \n" +
+                        "Se cere să se construiască o a doua listă de forma l2: y1 x1 → y2 x2 →... → yn xn \n" +
+                        "f(xi) = xi2\n" +
+                        "deci yi = xi2\n" +
+                        "Exemplu de lista 1:\n" +
+                        "1 : 1 2 2 4 3 6\n" +
+                        "Exemplu de lista 2:\n" +
+                        "l2: 2 1 4 2 6 3");
                 openProblemPanel();
+                submitButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        setVisibleHarcanInputs(true);
+                        showResultHarcanAdrian();
+                    }
+                });
             }
         });
 
@@ -215,6 +237,7 @@ public class GUI_Form extends JFrame {
         continueButton.setVisible(false);
         totalLabel.setVisible(false);
         problemInterface.setVisible(false);
+        setVisibleHarcanInputs(false);
     }
 
     public void openMenuPanel() {
@@ -398,6 +421,7 @@ public class GUI_Form extends JFrame {
         String textInputAlexandru = inputTextArea.getText();
 
         if (textInputAlexandru.matches(".*[a-z].*") || textInputAlexandru.contains(" ") || textInputAlexandru.matches(".*[A-Z].*") || textInputAlexandru.length() == 0) {
+            
             JOptionPane.showMessageDialog(rootPanel,
                     "Input-ul trebuie sa contina doar cifre, separate prin virgula.",
                     "Error input",
@@ -434,5 +458,65 @@ public class GUI_Form extends JFrame {
         outputTextArea.setText(outputTextArea.getText() + "Elementul maxim din stivă este: ");
         outputTextArea.setText(outputTextArea.getText() + max);
         outputTextArea.setText(outputTextArea.getText() + "\n--------------------- Problema 8 ---------------------");
+    }
+
+        public void showResultHarcanAdrian() {
+        LinkListAdrian l1= new LinkListAdrian();
+        LinkListAdrian l2= new LinkListAdrian();
+        int f;
+
+        /* Get inputs from TextFields */
+        try{
+            f = Integer.parseInt(fInputData.getText());
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(rootPanel,
+                    "Campul 'f' nu a fost completat sau a fost completat gresit. Acest camp trebuie sa contina un singur numar. ",
+                    "Error input",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String textInputAdrian = inputTextArea.getText();
+
+        if (textInputAdrian.matches(".*[a-z].*") || textInputAdrian.contains(",") || textInputAdrian.matches(".*[A-Z].*") || textInputAdrian.length() == 0) {
+            JOptionPane.showMessageDialog(rootPanel,
+                    "Input-ul trebuie sa contina doar cifre, separate prin virgula.",
+                    "Error input",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String[] textInputAdrianSplit = textInputAdrian.split(" ");
+        int numberOfElements = 0;
+
+        // insert numbers from textField into list (l1)
+        for (String s : textInputAdrianSplit) {
+            l1.insertFirst(Integer.parseInt(s));
+            numberOfElements++;
+        }
+
+        /* insert elements in l2 as the problem says and multiply it by f*/
+        while(!l1.isEmpty()){
+            int last_element = l1.deleteFirst();
+
+            if(!l1.isEmpty()) {
+                l2.insertFirst(l1.deleteFirst() * f);
+            }
+
+            l2.insertFirst(last_element * f);
+        }
+        int[] textOuputAdrian = l2.getList(numberOfElements);
+
+        /* show the results */
+        outputTextArea.setText("--------------------- Problema 17 ---------------------\n");
+        outputTextArea.setText(outputTextArea.getText() + "Inputs elements: " + Arrays.toString(textInputAdrianSplit) + "\n");
+        outputTextArea.setText(outputTextArea.getText() + "Outputs elements: " + Arrays.toString(textOuputAdrian));
+
+        outputTextArea.setText(outputTextArea.getText() + "\n--------------------- Problema 17 ---------------------");
+    }
+
+    public void setVisibleHarcanInputs(boolean type){
+        f_labelText.setVisible(type);
+        fInputData.setVisible(type);
     }
 }

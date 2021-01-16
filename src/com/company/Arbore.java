@@ -7,22 +7,6 @@ public class Arbore {
         root = null;
     }
 
-    // Cautare
-    public NodArbore find(int key) {
-        NodArbore current = root;
-        while (current.KeyNode != key) {
-            if (key < current.KeyNode) {
-                current = current.leftChild;
-            } else {
-                current = current.rightChild;
-            }
-            if (current == null) {
-                return null;
-            }
-        }
-        return current;
-    }
-
     //    Inserare
     public void insert(int key) {
         NodArbore newNode = new NodArbore();
@@ -51,7 +35,6 @@ public class Arbore {
         }
     }
 
-
     //    Parcurgere RSD
     String noduriArbore = "";
     public String updateRSD(NodArbore x) {
@@ -62,24 +45,6 @@ public class Arbore {
         }
 
         return noduriArbore;
-    }
-
-    //    Parcurgere SDR
-    public void SDR(NodArbore x) {
-        if (x != null) {
-            SDR(x.leftChild);
-            SDR(x.rightChild);
-            x.displayNode();
-        }
-    }
-
-    //    Parcurgere SRD
-    public void SRD(NodArbore x) {
-        if (x != null) {
-            SRD(x.leftChild);
-            x.displayNode();
-            SRD(x.rightChild);
-        }
     }
 
     //    Calculare inaltime

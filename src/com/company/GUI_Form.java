@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class GUI_Form extends JFrame {
     private JPanel rootPanel;
@@ -167,8 +168,15 @@ public class GUI_Form extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 studentName.setText("Miloiu Marian Iulian");
-                problemName.setText("Nr prb Iulian");
+                problemName.setText("29. Să se afișeze și să se numere elementele aflate în intervalul [a,b] dintr-un arbore binar");
                 openProblemPanel();
+
+                submitButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        showResultMiloiuMarian();
+                    }
+                });
             }
         });
 
@@ -526,5 +534,55 @@ public class GUI_Form extends JFrame {
     public void setVisibleHarcanInputs(boolean type){
         f_labelText.setVisible(type);
         fInputData.setVisible(type);
+    }
+
+    public void showResultMiloiuMarian() {
+        ArboreBinarMarian arbore = new ArboreBinarMarian();
+
+
+        // get text from textBox, and insert in the tree
+        String textInputMarian = inputTextArea.getText();
+
+        // verify if it contains incorrect characters
+        if (textInputMarian.matches(".*[a-z].*") || textInputMarian.contains(",") || textInputMarian.matches(".*[A-Z].*") || textInputMarian.length() == 0) {
+            JOptionPane.showMessageDialog(rootPanel,
+                    "Input-ul trebuie sa contina doar cifre, separate prin virgula.",
+                    "Error input",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // separate numbers, and insert in the tree
+
+        String[] textInputMarianSplit = textInputMarian.split(" ");
+        for (String s : textInputMarianSplit) {
+            arbore.insertValue(Integer.parseInt(s));
+        }
+
+
+        Scanner myObj = new Scanner(System.in);
+        String k1;
+        String k2;
+
+
+
+        outputTextArea.setText(outputTextArea.getText() + "\n Enter interval ");
+
+        //  arbore.Print(arbore.root, );
+        //   arbore.getCount(arbore.root,20, 50);
+
+
+
+        outputTextArea.setText(outputTextArea.getText() + arbore.printArbore(arbore.root,10,29));
+
+
+
+
+
+        //get height tree
+
+        // update contor nods
+
+
     }
 }

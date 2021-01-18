@@ -1,5 +1,7 @@
 package com.company;
 
+import java.util.Arrays;
+
 public class ArboreBinarMarian {
     public NodArboreMarian root;
 
@@ -54,6 +56,7 @@ public class ArboreBinarMarian {
 
     //    Parcurgere RSD
     String noduriArbore = "";
+
     public String updateRSD(NodArboreMarian x) {
         if (x != null) {
             noduriArbore = noduriArbore + " " + x.getNode();
@@ -82,63 +85,42 @@ public class ArboreBinarMarian {
         }
     }
 
-    // Functie Print
+    int contorElemente = 0;
 
-     int printArbore(NodArboreMarian node, int k1, int k2) {
-
-
+    public int getCont(NodArboreMarian node, int k1, int k2) {
         /* base case */
-        if (node == null) {
-            return 0;
+        if (node != null) {
+            if (k1 < node.KeyNode) {
+                getCont(node.leftChild, k1, k2);
+            }
+            if (node.KeyNode >= k1 && node.KeyNode <= k2) {
+                contorElemente++;
+            }
+            if (k2 > node.KeyNode) {
+                getCont(node.rightChild, k1, k2);
+            }
         }
-
-        /* Since the desired o/p is sorted, recurse for left subtree first
-         If root->data is greater than k1, then only we can get o/p keys
-         in left subtree */
-        if (k1 < node.KeyNode) {
-            printArbore(node.leftChild,k1 , k2);
-        }
-
-        /* if root's data lies in range, then prints root's data */
-        if (k1 <= node.KeyNode && k2 >= node.KeyNode) {
-            System.out.print(node.KeyNode + " ");
-        }
-
-        /* If root->data is smaller than k2, then only we
-         can get o/p keys in right subtree */
-        if (k2 > node.KeyNode) {
-            printArbore(node.rightChild, k1 , k2);
-        }
-
-
-         return 0;
-     }
-
-     //Functie Count
-
-      int  getCount(NodArboreMarian node , int low , int high) {
-
-        // Base Case
-        if(node == null)
-            return 0;
-
-        // If current node is in range, then
-        // include it in count and recur for
-        // left and right children of it
-        if(node.KeyNode >= low && node.KeyNode <= high)
-            return 1 + this.getCount(node.leftChild, low, high)+ this.getCount(node.rightChild, low, high);
-
-            // If current node is smaller than low,
-            // then recur for right child
-        else if(node.KeyNode < low)
-            return this.getCount(node.rightChild, low, high);
-
-            // Else recur for left child
-        else
-            return this.getCount(node.leftChild, low, high);
-
+        return contorElemente;
     }
 
+    int contLista = 0;
+    int[] numbersList = new int[100];
 
+    boolean onlyOne = true;
+    int[] getIntervalThree(NodArboreMarian node, int k1, int k2) {
+        /* base case */
+        if (node != null) {
+            if (k1 < node.KeyNode) {
+                getIntervalThree(node.leftChild, k1, k2);
+            }
+            if (k1 <= node.KeyNode && node.KeyNode <= k2) {
+                numbersList[contLista++] = node.KeyNode;
+            }
+            if (k2 > node.KeyNode) {
+                getIntervalThree(node.rightChild, k1, k2);
 
+            }
+        }
+        return numbersList;
+    }
 }

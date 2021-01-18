@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class GUI_Form extends JFrame {
     private JPanel rootPanel;
@@ -19,7 +20,7 @@ public class GUI_Form extends JFrame {
     private JTextArea inputTextArea;
     private JTextArea mInput;
     private JTextArea nInput;
-    private JTextArea outputTextArea;
+    public JTextArea outputTextArea;
     private JButton baciuAlexandruButton;
     private JLabel studentName;
     private JLabel descriptionStudentName;
@@ -36,6 +37,9 @@ public class GUI_Form extends JFrame {
     private JLabel totalLabel;
     private JTextField fInputData;
     private JLabel f_labelText;
+    private JTextField textFieldMarian2;
+    private JTextField textFieldMarian1;
+    private JLabel labelMarian;
 
     int m, n, prod;
 
@@ -167,8 +171,19 @@ public class GUI_Form extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 studentName.setText("Miloiu Marian Iulian");
-                problemName.setText("Nr prb Iulian");
+                problemName.setText("29. Să se afișeze și să se numere elementele aflate în intervalul\n"
+                        +" [a,b] dintr-un arbore binar");
+                inputDescription.setText("Introduceți elementele intervalului:  ");
+                outputDescription.setText("Elementele aflate in interval sunt: ");
                 openProblemPanel();
+                setVisibleMarianInputs(true);
+
+                submitButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        showResultMiloiuMarian();
+                    }
+                });
             }
         });
 
@@ -196,6 +211,8 @@ public class GUI_Form extends JFrame {
                 for (ActionListener instantaActionListener : curatare) {
                     submitButton.removeActionListener(instantaActionListener);
                 }
+                inputDescription.setText("Input:  ");
+                outputDescription.setText("Output: ");
             }
         });
 
@@ -238,6 +255,7 @@ public class GUI_Form extends JFrame {
         totalLabel.setVisible(false);
         problemInterface.setVisible(false);
         setVisibleHarcanInputs(false);
+        setVisibleMarianInputs(false);
     }
 
     public void openMenuPanel() {
@@ -468,7 +486,7 @@ public class GUI_Form extends JFrame {
         outputTextArea.setText(outputTextArea.getText() + "\n--------------------- Problema 8 ---------------------");
     }
 
-        public void showResultHarcanAdrian() {
+    public void showResultHarcanAdrian() {
         LinkListAdrian l1= new LinkListAdrian();
         LinkListAdrian l2= new LinkListAdrian();
         int f;
@@ -526,5 +544,62 @@ public class GUI_Form extends JFrame {
     public void setVisibleHarcanInputs(boolean type){
         f_labelText.setVisible(type);
         fInputData.setVisible(type);
+    }
+
+
+    public void setVisibleMarianInputs(boolean type){
+        textFieldMarian1.setVisible(type);
+        textFieldMarian2.setVisible(type);
+        labelMarian.setVisible(type);
+    }
+
+    public void showResultMiloiuMarian() {
+        ArboreBinarMarian arbore = new ArboreBinarMarian();
+
+        // get text from textBox, and insert in the tree
+        String textInputMarian = inputTextArea.getText();
+
+        // verify if it contains incorrect characters
+        if (textInputMarian.matches(".*[a-z].*") || textInputMarian.contains(",") || textInputMarian.matches(".*[A-Z].*") || textInputMarian.length() == 0) {
+            JOptionPane.showMessageDialog(rootPanel,
+                    "Input-ul trebuie sa contina doar cifre, separate prin virgula.",
+                    "Error input",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        int totalThreeNumbers = 0;
+        String[] textInputMarianSplit = textInputMarian.split(" ");
+        for (String s : textInputMarianSplit) {
+            arbore.insertValue(Integer.parseInt(s));
+            totalThreeNumbers++;
+        }
+        int k1, k2;
+        try{
+            k1= Integer.parseInt(textFieldMarian1.getText());
+            k2= Integer.parseInt(textFieldMarian2.getText());
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(rootPanel,
+                    "Campurile k1 sau k2 nu au fost completate",
+                    "Error input",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        int[] intervalulIntregCuNumbere = arbore.getIntervalThree(arbore.root, k1, k2);
+        int contorInterval = arbore.getCont(arbore.root, k1, k2);
+        int[] numbersList = new int[contorInterval];
+
+        if (contorInterval >= 0) System.arraycopy(intervalulIntregCuNumbere, 0, numbersList, 0, contorInterval);
+
+
+
+        outputTextArea.setText("--------------------- Problema 29 ---------------------\n\n");
+
+        outputTextArea.setText(outputTextArea.getText() + "Numerele aflate in interval sunt " + Arrays.toString(numbersList));
+        outputTextArea.setText(outputTextArea.getText() + "\nTotal numere aflate in interval  " + contorInterval);
+
+
+        outputTextArea.setText(outputTextArea.getText() + "\n\n--------------------- Problema 29 ---------------------");
     }
 }

@@ -162,8 +162,14 @@ public class GUI_Form extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 studentName.setText("Mihalache David Alexandru");
-                problemName.setText("Nr prb David");
+                problemName.setText("26. Să se inverseze elementele unei liste a. circulară pe un sens pe loc, fără copiere.");
                 openProblemPanel();
+                submitButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        showResultMihalacheDavid();
+                    }
+                });
             }
         });
 
@@ -172,7 +178,7 @@ public class GUI_Form extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 studentName.setText("Miloiu Marian Iulian");
                 problemName.setText("29. Să se afișeze și să se numere elementele aflate în intervalul\n"
-                        +" [a,b] dintr-un arbore binar");
+                        + " [a,b] dintr-un arbore binar");
                 inputDescription.setText("Introduceți elementele intervalului:  ");
                 outputDescription.setText("Elementele aflate in interval sunt: ");
                 openProblemPanel();
@@ -287,7 +293,7 @@ public class GUI_Form extends JFrame {
         for (String s : textInputSplit) {
             try {
                 arboreElisei.insert(Integer.parseInt(s));
-            }catch (Exception e){
+            } catch (Exception e) {
                 JOptionPane.showMessageDialog(rootPanel,
                         "Input-ul contine caractere interzise sau double-space.",
                         "Error input",
@@ -447,7 +453,7 @@ public class GUI_Form extends JFrame {
         String textInputAlexandru = inputTextArea.getText();
 
         if (textInputAlexandru.matches(".*[a-z].*") || textInputAlexandru.contains(" ") || textInputAlexandru.matches(".*[A-Z].*") || textInputAlexandru.length() == 0) {
-            
+
             JOptionPane.showMessageDialog(rootPanel,
                     "Input-ul trebuie sa contina doar cifre, separate prin virgula.",
                     "Error input",
@@ -487,14 +493,14 @@ public class GUI_Form extends JFrame {
     }
 
     public void showResultHarcanAdrian() {
-        LinkListAdrian l1= new LinkListAdrian();
-        LinkListAdrian l2= new LinkListAdrian();
+        LinkListAdrian l1 = new LinkListAdrian();
+        LinkListAdrian l2 = new LinkListAdrian();
         int f;
 
         /* Get inputs from TextFields */
-        try{
+        try {
             f = Integer.parseInt(fInputData.getText());
-        }catch (Exception e){
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPanel,
                     "Campul 'f' nu a fost completat sau a fost completat gresit. Acest camp trebuie sa contina un singur numar. ",
                     "Error input",
@@ -522,10 +528,10 @@ public class GUI_Form extends JFrame {
         }
 
         /* insert elements in l2 as the problem says and multiply it by f*/
-        while(!l1.isEmpty()){
+        while (!l1.isEmpty()) {
             int last_element = l1.deleteFirst();
 
-            if(!l1.isEmpty()) {
+            if (!l1.isEmpty()) {
                 l2.insertFirst(l1.deleteFirst() * f);
             }
 
@@ -541,13 +547,13 @@ public class GUI_Form extends JFrame {
         outputTextArea.setText(outputTextArea.getText() + "\n--------------------- Problema 17 ---------------------");
     }
 
-    public void setVisibleHarcanInputs(boolean type){
+    public void setVisibleHarcanInputs(boolean type) {
         f_labelText.setVisible(type);
         fInputData.setVisible(type);
     }
 
 
-    public void setVisibleMarianInputs(boolean type){
+    public void setVisibleMarianInputs(boolean type) {
         textFieldMarian1.setVisible(type);
         textFieldMarian2.setVisible(type);
         labelMarian.setVisible(type);
@@ -575,10 +581,10 @@ public class GUI_Form extends JFrame {
             totalThreeNumbers++;
         }
         int k1, k2;
-        try{
-            k1= Integer.parseInt(textFieldMarian1.getText());
-            k2= Integer.parseInt(textFieldMarian2.getText());
-        }catch (Exception e){
+        try {
+            k1 = Integer.parseInt(textFieldMarian1.getText());
+            k2 = Integer.parseInt(textFieldMarian2.getText());
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPanel,
                     "Campurile k1 sau k2 nu au fost completate",
                     "Error input",
@@ -593,7 +599,6 @@ public class GUI_Form extends JFrame {
         if (contorInterval >= 0) System.arraycopy(intervalulIntregCuNumbere, 0, numbersList, 0, contorInterval);
 
 
-
         outputTextArea.setText("--------------------- Problema 29 ---------------------\n\n");
 
         outputTextArea.setText(outputTextArea.getText() + "Numerele aflate in interval sunt " + Arrays.toString(numbersList));
@@ -601,5 +606,37 @@ public class GUI_Form extends JFrame {
 
 
         outputTextArea.setText(outputTextArea.getText() + "\n\n--------------------- Problema 29 ---------------------");
+    }
+
+    public void showResultMihalacheDavid() {
+        LinkListDavid theList = new LinkListDavid();
+
+        String textInputDavid = inputTextArea.getText();
+
+        if (textInputDavid.matches(".*[a-z].*") || textInputDavid.contains(",") || textInputDavid.matches(".*[A-Z].*") || textInputDavid.length() == 0) {
+            JOptionPane.showMessageDialog(rootPanel,
+                    "Input-ul trebuie sa contina doar cifre, separate prin virgula.",
+                    "Error input",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String[] textInputDavidSplit = textInputDavid.split(" ");
+
+        // insert numbers from textField into list (l1)
+        for (String s : textInputDavidSplit) {
+            theList.insertFirst(Integer.parseInt(s));
+        }
+
+        theList.displayList();
+        theList.reverseLinkedList(theList);
+        theList.displayList();
+        ArrayList<Integer> reversedListArr = theList.getResultArray();
+        outputTextArea.setText("--------------------- Problema 26 ---------------------\n\n");
+        outputTextArea.setText(outputTextArea.getText() + "Lista inversată este: ");
+        for (Integer item : reversedListArr) {
+            outputTextArea.setText(outputTextArea.getText() + item + " ");
+        }
+        outputTextArea.setText(outputTextArea.getText() + "\n\n--------------------- Problema 26 ---------------------");
     }
 }

@@ -282,7 +282,7 @@ public class GUI_Form extends JFrame {
         // verify if it contains incorrect characters
         if (textInput.matches(".*[a-z].*") || textInput.contains(",") || textInput.matches(".*[A-Z].*") || textInput.length() == 0) {
             JOptionPane.showMessageDialog(rootPanel,
-                    "Input-ul trebuie sa contina doar cifre, separate prin virgula.",
+                    "Input-ul trebuie sa contina doar cifre, separate printr-un spatiu  ' ' (ex: 1 5 9 0 3 2)",
                     "Error input",
                     JOptionPane.ERROR_MESSAGE);
             return;
@@ -330,7 +330,7 @@ public class GUI_Form extends JFrame {
 
         if (textInputAlin.matches(".*[a-z].*") || textInputAlin.contains(",") || textInputAlin.matches(".*[A-Z].*") || textInputAlin.length() == 0) {
             JOptionPane.showMessageDialog(rootPanel,
-                    "Input-ul trebuie sa contina doar cifre, separate prin virgula.",
+                    "Input-ul trebuie sa contina doar cifre, separate printr-un spatiu  ' '.",
                     "Error input",
                     JOptionPane.ERROR_MESSAGE);
             return;
@@ -373,7 +373,7 @@ public class GUI_Form extends JFrame {
 
         if (textInputCosmin.matches(".*[a-z].*") || textInputCosmin.contains(",") || textInputCosmin.matches(".*[A-Z].*") || textInputCosmin.length() == 0) {
             JOptionPane.showMessageDialog(rootPanel,
-                    "Input-ul trebuie sa contina doar cifre, separate prin virgula.",
+                    "Input-ul trebuie sa contina doar cifre, separate printr-un spatiu  ' '.",
                     "Error input",
                     JOptionPane.ERROR_MESSAGE);
             return;
@@ -406,7 +406,7 @@ public class GUI_Form extends JFrame {
 
         if (textInputAndrei.matches(".*[a-z].*") || textInputAndrei.contains(",") || textInputAndrei.matches(".*[A-Z].*") || textInputAndrei.length() == 0) {
             JOptionPane.showMessageDialog(rootPanel,
-                    "Input-ul trebuie sa contina doar cifre, separate prin virgula.",
+                    "Input-ul trebuie sa contina doar cifre, separate printr-un spatiu  ' '.",
                     "Error input",
                     JOptionPane.ERROR_MESSAGE);
             return;
@@ -453,16 +453,16 @@ public class GUI_Form extends JFrame {
 
         String textInputAlexandru = inputTextArea.getText();
 
-        if (textInputAlexandru.matches(".*[a-z].*") || textInputAlexandru.contains(" ") || textInputAlexandru.matches(".*[A-Z].*") || textInputAlexandru.length() == 0) {
+        if (textInputAlexandru.matches(".*[a-z].*") || textInputAlexandru.contains(",") || textInputAlexandru.matches(".*[A-Z].*") || textInputAlexandru.length() == 0) {
 
             JOptionPane.showMessageDialog(rootPanel,
-                    "Input-ul trebuie sa contina doar cifre, separate prin virgula.",
+                    "Input-ul trebuie sa contina doar cifre, separate printr-un spatiu  ' '.",
                     "Error input",
                     JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        String[] textInputAlexandruSplit = textInputAlexandru.split(",");
+        String[] textInputAlexandruSplit = textInputAlexandru.split(" ");
 
 //        insert input items in the List
         for (String s : textInputAlexandruSplit) {
@@ -513,7 +513,7 @@ public class GUI_Form extends JFrame {
 
         if (textInputAdrian.matches(".*[a-z].*") || textInputAdrian.contains(",") || textInputAdrian.matches(".*[A-Z].*") || textInputAdrian.length() == 0) {
             JOptionPane.showMessageDialog(rootPanel,
-                    "Input-ul trebuie sa contina doar cifre, separate prin virgula.",
+                    "Input-ul trebuie sa contina doar cifre, separate printr-un spatiu  ' '.",
                     "Error input",
                     JOptionPane.ERROR_MESSAGE);
             return;
@@ -569,7 +569,7 @@ public class GUI_Form extends JFrame {
         // verify if it contains incorrect characters
         if (textInputMarian.matches(".*[a-z].*") || textInputMarian.contains(",") || textInputMarian.matches(".*[A-Z].*") || textInputMarian.length() == 0) {
             JOptionPane.showMessageDialog(rootPanel,
-                    "Input-ul trebuie sa contina doar cifre, separate prin virgula.",
+                    "Input-ul trebuie sa contina doar cifre, separate printr-un spatiu  ' '.",
                     "Error input",
                     JOptionPane.ERROR_MESSAGE);
             return;
@@ -616,7 +616,7 @@ public class GUI_Form extends JFrame {
 
         if (textInputDavid.matches(".*[a-z].*") || textInputDavid.contains(",") || textInputDavid.matches(".*[A-Z].*") || textInputDavid.length() == 0) {
             JOptionPane.showMessageDialog(rootPanel,
-                    "Input-ul trebuie sa contina doar cifre, separate prin virgula.",
+                    "Input-ul trebuie sa contina doar cifre, separate printr-un spatiu  ' '.",
                     "Error input",
                     JOptionPane.ERROR_MESSAGE);
             return;

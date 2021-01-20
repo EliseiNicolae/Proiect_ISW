@@ -317,7 +317,8 @@ public class GUI_Form extends JFrame {
         outputTextArea.setText(outputTextArea.getText() + "\n Raspuns: " + arboreElisei.updateRSD(arboreElisei.root));
         outputTextArea.setText(outputTextArea.getText() + "\n\n--------------------- Problema 50 ---------------------");
         arboreElisei.noduriArbore = "";
-        arboreElisei.contorInaltime = 0;
+        arboreElisei.contorInaltimeLeft = 0;
+        arboreElisei.contorInaltimeRight = 0;
     }
 
     public void showResultAlinAldescu() {
